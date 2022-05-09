@@ -1,0 +1,2 @@
+global.vars = {}
+global.objs = {}
