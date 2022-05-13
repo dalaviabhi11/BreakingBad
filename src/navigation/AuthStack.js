@@ -4,6 +4,7 @@ import BreakingBadList from '../modules/BreakingBadList';
 import { NavigationContainer } from '@react-navigation/native';
 import FavoriteList from '../modules/FavouriteList';
 import CharacterDetail from '../modules/CharacterDetail';
+import SearchList from '../modules/searchList';
 
 const Stack = createStackNavigator();
 const AuthStack = (props) => {
@@ -23,6 +24,11 @@ const AuthStack = (props) => {
         name='characterDetail'
         options={{headerShown: false}}
         component={CharacterDetail}
+        />
+        <Stack.Screen
+        name='searchList'
+        options={{headerShown: false}}
+        component={SearchList}
         />
       </Stack.Navigator>
   );

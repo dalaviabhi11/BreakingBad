@@ -23,27 +23,24 @@ const FavoriteList = (props) =>{
         /*---------------------------------------------------Render useEffect Start------------------------------------------------------------------*/
 
     useEffect(()=>{
-        (charactersListItems && charactersListItems.length > 0) ? setDummyCharacterList(charactersListItems) : setDummyCharacterList([]); 
-
-    },[])
-
-    useEffect(()=>{
         getFavouriteList(); 
     },[charactersListItems])
 
     useFocusEffect(useCallback(()=>{
-        setLoader(true);
+        (charactersListItems && charactersListItems.length > 0) ? setDummyCharacterList(charactersListItems) : setDummyCharacterList([]); 
         getFavouriteList();
-        setLoader(false);
-    },[charactersListItems]));
+    },[]));
 
     const getFavouriteList = () =>{
+        setLoader(true);
         if(charactersListItems && charactersListItems.length > 0){
             const getFavCharacterList = charactersListItems.filter((item)=> item.isFavorite);
             getFavCharacterList ? setCharacterList(getFavCharacterList) : setCharacterList([]);
+            setLoader(false);
         }
         else{
             setCharacterList([]);
+            setLoader(false);
         } 
     }
         /*---------------------------------------------------Render useEffect End------------------------------------------------------------------*/
@@ -108,7 +105,7 @@ const FavoriteList = (props) =>{
 
     const renderEmptyView = () =>{
         return(
-            <View style={styles.noResultContainer}>
+            (charactersList.length <= 0 && loading) ? null : <View style={styles.noResultContainer}>
                 <Text style={styles.noResultText}>{'No favourite Character found'}</Text>
                 <TouchableOpacity onPress={()=> onGoBack()}>
                 <Text style={styles.tryAgainText}>{'Back to Home'}</Text>
@@ -122,7 +119,7 @@ const FavoriteList = (props) =>{
     return(
         <View style={{flex: 1, backgroundColor: appColors.secondaryBlack}}>
             {renderHeader()}
-            {(charactersList.length > 0) ? renderCharacterList() : loading ? null : renderEmptyView()}
+            {(charactersList.length > 0) ? renderCharacterList() : renderEmptyView()}
         </View>
     );
 }

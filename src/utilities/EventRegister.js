@@ -10,12 +10,6 @@ export class EventRegister {
 		this.evtListenersHm[evtName] = [];
 	}
 
-	static getInstance(evtName){
-		if( !isSet(EventRegister.instances[evtName]) ){
-			EventRegister.instances[evtName] = new EventRegister(evtName);
-		}
-		return EventRegister.instances[evtName];
-	}
 
 	addListener(listener){
 		var found = this.evtListenersHm[this.evtName].find( elem => {
@@ -36,15 +30,6 @@ export class EventRegister {
 		}
 	}
 
-	notifyListeners(obj){
-		this.evtListenersHm[this.evtName].forEach(listener => {
-			try{
-				listener(obj, this.evtName);	
-			}catch(err){
-				if(debug) mydbg("Error while notifying the listener:" + err)
-			}	
-		});
-	}
 
 }
 

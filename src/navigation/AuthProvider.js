@@ -37,7 +37,7 @@ export const AuthProvider = ({children}) => {
 
   useEffect(() => {
     try {
-      setLoader(false);
+    setLoader(false);
  
     } catch (err) {
       if (debug) mydbg('Error whilw opneing the app: ' + err);
